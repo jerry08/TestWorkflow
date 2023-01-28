@@ -1,6 +1,18 @@
 name: discord message
 
-on: [push]
+on:
+  workflow_call:
+    secrets:
+      CODECOV_TOKEN:
+        required: false
+      NUGET_TOKEN:
+        required: true
+      DISCORD_WEBHOOK:
+        required: false
+      # Reusable workflows don't propagate parent's execution context,
+      # so we need this hack to pass additional environment variables from the caller.
+      DYNAMIC:
+        required: false
 
 jobs:
 
