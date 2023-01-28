@@ -3,12 +3,14 @@ on: [push]
 jobs:
 
   build:
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        
     name: Build
     runs-on: ubuntu-latest
+    
     steps:
     - name: Discord notification
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.WEBHOOK_ID }}
       uses: Ilshidur/action-discord@master
       with:
-        args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
+        args: 'The project test has been deployed.'
