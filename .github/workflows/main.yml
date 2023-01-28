@@ -1,12 +1,41 @@
 name: main
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  notify:
+  package:
+    runs-on: windows-latest
+
+    env:
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+  deploy:
+    if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
+    needs: package
     runs-on: ubuntu-latest
 
     steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ConsoleApp6
+          path: ConsoleApp6
+          
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get release version
+        id: get_version
+        uses: dawidd6/action-get-tag@v1
+
       - name: Notify Discord
         uses: satak/webrequest-action@v1.2.4
         with:
@@ -18,5 +47,5 @@ jobs:
             }
           payload: |
             {
-              "content": "**AniStream** new version released"
+              "content": "**ConsoleApp6** new version released"
             }
