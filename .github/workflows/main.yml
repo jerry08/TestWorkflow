@@ -1,10 +1,15 @@
 name: main
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   package:
     runs-on: windows-latest
+
+    env:
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
     
     steps:
       - name: Checkout
