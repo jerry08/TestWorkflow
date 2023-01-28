@@ -6,12 +6,9 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: send message
-      uses: appleboy/discord-action@master
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
       with:
-        webhook_id: ${{ secrets.WEBHOOK_ID }}
-        webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-        color: "#48f442"
-        username: "GitHub Bot"
-        message: "A new commit has been pushed with custom color."
+        args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
