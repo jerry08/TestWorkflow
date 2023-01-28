@@ -9,21 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-  deploy:
-    if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
-    needs: package
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: ConsoleApp6
-          path: ConsoleApp6
           
   notify:
-    needs: deploy
     runs-on: ubuntu-latest
 
     steps:
