@@ -1,49 +1,77 @@
-name: discord message
+name: test1
 
-on:
-  workflow_call:
-    secrets:
-      CODECOV_TOKEN:
-        required: false
-      NUGET_TOKEN:
-        required: true
-      DISCORD_WEBHOOK:
-        required: false
-      # Reusable workflows don't propagate parent's execution context,
-      # so we need this hack to pass additional environment variables from the caller.
-      DYNAMIC:
-        required: false
+on: [push, pull_request]
 
 jobs:
-
-  notify:
-    name: testing
-    runs-on: ubuntu-latest
+  package:
+    runs-on: windows-latest
 
     env:
-      # Secrets can't be referenced in conditionals, but environment variables can.
-      # https://github.com/github/docs/issues/6861#issuecomment-870757186
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
-      - name: Initialize environment
-        run: echo "${{ secrets.DYNAMIC }}" >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v3
 
+      - name: Install .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 7.0.x
+
+      - name: Publish
+        run: dotnet publish ConsoleApp6/ -o ConsoleApp6/bin/Publish --configuration Release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ConsoleApp6
+          path: ConsoleApp6/bin/Publish
+
+  deploy:
+    if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
+    needs: package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: YoutubeDownloader
+          path: YoutubeDownloader
+
+      - name: Create package
+        run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
+        shell: pwsh
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: ConsoleApp6.zip
+          body: |
+            [Changelog](https://github.com/Tyrrrz/YoutubeDownloader/blob/master/Changelog.md)
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Get release version
-        id: get-version
+        id: get_version
         uses: dawidd6/action-get-tag@v1
 
       - name: Notify Discord
-        if: ${{ env.DISCORD_WEBHOOK }}
         uses: satak/webrequest-action@v1.2.4
         with:
           url: ${{ secrets.DISCORD_WEBHOOK }}
           method: POST
           headers: |
             {
-              "Content-Type": "application/json; charset=UTF-8"
+              "ContentType": "application/json; charset=UTF-8"
             }
           payload: |
             {
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ steps.get-version.outputs.tag }}`\nChangelog: <https://github.com/${{ github.event.repository.full_name }}/blob/${{ steps.get-version.outputs.tag }}/Changelog.md>"
+              "content": "**YoutubeDownloader** new version released!\nVersion: `${{ steps.get_version.outputs.tag }}`\nChangelog: <https://github.com/Tyrrrz/YoutubeDownloader/blob/${{ steps.get_version.outputs.tag }}/Changelog.md>"
             }
