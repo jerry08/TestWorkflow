@@ -3,14 +3,10 @@ name: main
 on: [push]
 
 jobs:
-  rebuild:
+  notify:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get release version
-        id: get_version
-        uses: dawidd6/action-get-tag@v1
-
       - name: Notify Discord
         uses: satak/webrequest-action@v1.2.4
         with:
@@ -22,5 +18,5 @@ jobs:
             }
           payload: |
             {
-              "content": "**AniStream** new version released!\nVersion: `${{ steps.get_version.outputs.tag }}`\Download: <https://github.com/jery08/AniStream/releases/download/AniStream-${{ steps.get_version.outputs.tag }}.apk>"
+              "content": "**AniStream** new version released"
             }
