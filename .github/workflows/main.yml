@@ -14,10 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get release version
-        id: get_version
-        uses: dawidd6/action-get-tag@v1
-
       - name: Notify Discord
         uses: satak/webrequest-action@v1.2.4
         with:
