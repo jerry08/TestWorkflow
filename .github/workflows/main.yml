@@ -19,7 +19,16 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 7.0.x
-     
+          
+      - name: Publish
+        run: dotnet publish ConsoleApp6/ -o ConsoleApp6/bin/Publish --configuration Release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ConsoleApp6
+          path: ConsoleApp6/bin/Publish
+          
   deploy:
     if: ${{ github.event_name == 'push' }}
     needs: package
