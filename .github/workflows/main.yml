@@ -3,7 +3,7 @@ name: main
 on: [push]
 
 jobs:
-  notify:
+  rebuild:
     runs-on: ubuntu-latest
 
     steps:
