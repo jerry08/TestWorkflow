@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   main:
-    uses: jerry08/.github/.github/workflows/nuget.yml@master
+    uses: Tyrrrz/.github/.github/workflows/nuget.yml@master
     with:
       dotnet-version: 7.0.x
     secrets:
