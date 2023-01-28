@@ -1,15 +1,13 @@
-name: discord message
-on: [push]
-jobs:
+name: main
 
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: send custom message with args
-      uses: appleboy/discord-action@master
-      with:
-        webhook_id: ${{ secrets.WEBHOOK_ID }}
-        webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-        args: The ${{ github.event_name }} event triggered first step.
+on: [push, pull_request]
+
+jobs:
+  main:
+    uses: jerry08/.github/.github/workflows/nuget.yml@master
+    with:
+      dotnet-version: 7.0.x
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
