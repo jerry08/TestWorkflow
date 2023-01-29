@@ -42,7 +42,7 @@ jobs:
           path: YoutubeDownloader
 
       - name: Create package
-        run: Compress-Archive -Path YoutubeDownloader/* -DestinationPath YoutubeDownloader.zip -Force
+        run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
         shell: pwsh
 
       - name: Create release
