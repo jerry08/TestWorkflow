@@ -50,7 +50,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: YoutubeDownloader.zip
+          files: ConsoleApp6.zip
           body: |
             [Changelog](https://github.com/Tyrrrz/YoutubeDownloader/blob/master/Changelog.md)
   notify:
