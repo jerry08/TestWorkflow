@@ -76,7 +76,6 @@ jobs:
             Content-Type: application/json; charset=UTF-8
           body: |
             {
-              "username": "Webhook",
               "avatar_url": "https://i.imgur.com/4M34hi2.png"
               "content": "this is a test"
             }
