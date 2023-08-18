@@ -3,7 +3,7 @@ name: main
 on: [push, pull_request]
 
 jobs:
-  package:
+  pack:
     runs-on: windows-latest
 
     env:
@@ -31,8 +31,11 @@ jobs:
 
   deploy:
     if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
-    needs: package
+    needs: pack
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
 
     steps:
       - name: Download artifacts
