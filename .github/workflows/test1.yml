@@ -38,8 +38,8 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: YoutubeDownloader
-          path: YoutubeDownloader
+          name: ConsoleApp6
+          path: ConsoleApp6
 
       - name: Create package
         run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
@@ -52,7 +52,7 @@ jobs:
         with:
           files: ConsoleApp6.zip
           body: |
-            [Changelog](https://github.com/Tyrrrz/YoutubeDownloader/blob/master/Changelog.md)
+            this is a test
   notify:
     needs: deploy
     runs-on: ubuntu-latest
@@ -73,5 +73,5 @@ jobs:
             }
           payload: |
             {
-              "content": "**YoutubeDownloader** new version released!\nVersion: `${{ steps.get_version.outputs.tag }}`\nChangelog: <https://github.com/Tyrrrz/YoutubeDownloader/blob/${{ steps.get_version.outputs.tag }}/Changelog.md>"
+              "content": "**ConsoleTest** new version released!\nVersion: `${{ steps.get_version.outputs.tag }}`\nChangelog: test>"
             }
