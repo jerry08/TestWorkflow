@@ -12,6 +12,10 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
+      - name: Print outputs
+        run: |
+          echo "Status: ${{ secrets.DISCORD_WEBHOOK }}"
+          
       - name: Checkout
         uses: actions/checkout@v3
 
