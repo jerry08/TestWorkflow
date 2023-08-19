@@ -67,9 +67,6 @@ jobs:
       contents: read
 
     steps:
-      - name: Extract release notes
-        id: extract-release-notes
-        uses: ffurrer2/extract-release-notes@v1
       - name: Notify Discord
         uses: tyrrrz/action-http-request@v1
         with:
@@ -81,5 +78,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\nRelease Notes: ${{ steps.extract-release-notes.outputs.release_notes }}"
+              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\nRelease Notes: ${{ github.event.release.body }}"
             }
