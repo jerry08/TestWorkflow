@@ -36,7 +36,6 @@ jobs:
           path: ConsoleApp6/bin/Publish
 
   deploy:
-    if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
     needs: pack
     runs-on: ubuntu-latest
     permissions:
