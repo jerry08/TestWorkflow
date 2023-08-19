@@ -73,6 +73,8 @@ jobs:
 
     steps:
       - name: Notify Discord
+        env:
+          RELEASE_BODY: ${{ toJSON(github.event.release.body) }}
         uses: tyrrrz/action-http-request@v1
         with:
           url: ${{ secrets.DISCORD_WEBHOOK }}
@@ -83,5 +85,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": "${{ toJSON(github.event.release.body) }}"
+              "content": "$RELEASE_BODY"
             }
