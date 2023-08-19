@@ -100,5 +100,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.RELEASE_BODY }}\n\nDownload: <${{ github.event.release.html_url }}/${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.apk>"
+              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.RELEASE_BODY }}\n\nDownload: <${{ github.event.release.assets[0].browser_download_url }}/${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.apk>"
             }
