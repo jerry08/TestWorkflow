@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: Setup env var
         run: |
-          echo MESSAGE_TEST=${{ format('{0}{1}{2}', '**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n', ${{ toJSON(github.event.release.body) }}, 'Download: <${{ github.event.release.html_url }}/${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.apk>') }} >> $GITHUB_ENV
+          echo MESSAGE_TEST=${{ fromJSON(toJSON(github.event.release.body)) }} >> $GITHUB_ENV
           
       - name: Notify Discord
         env:
