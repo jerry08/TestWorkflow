@@ -72,23 +72,6 @@ jobs:
       contents: read
 
     steps:
-      - name: create string
-        run: |
-          MY_STRING=$(cat << EOF
-          first line
-          second line
-          third line
-          EOF
-          )
-          MY_STRING="${MY_STRING//'%'/'%25'}"
-          MY_STRING="${MY_STRING//$'\n'/'%0A'}"
-          MY_STRING="${MY_STRING//$'\r'/'%0D'}"
-          echo "::set-output name=content::$MY_STRING"
-        id: my_string
-      - name: display string
-        run: |
-          echo "The string is: ${{ steps.my_string.outputs.content }}"
-
       - name: Notify Discord
         uses: tyrrrz/action-http-request@v1
         with:
@@ -100,5 +83,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ github.event.release.body }}\n\n${{ steps.my_string.outputs.content }}\n\nDownload: <${{ github.event.release.html_url }}/${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.apk>"
+              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ to JSON(github.event.release.body) }}\n\n$Download: <${{ github.event.release.html_url }}/${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.apk>"
             }
