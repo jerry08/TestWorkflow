@@ -78,7 +78,7 @@ jobs:
     steps:
       - name: Notify Discord
         env:
-          RELEASE_BODY: format('{0}{1}{2}', "**${{ github.event.repository.name }}** new version released!\nVersion':' `${{ github.ref_name }}`\n\n", ${{ toJSON(github.event.release.body) }}, 'Octocat')
+          RELEASE_BODY: "${{ format('{0}{1}{2}', '**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n', ${{ toJSON(github.event.release.body) }}, 'Octocat') }}"
     
         uses: tyrrrz/action-http-request@v1
         with:
