@@ -78,7 +78,7 @@ jobs:
     steps:
       - name: Setup env var
         run: |
-          echo MESSAGE_TEST='${{ format('{0}{1}{2}', "test1", "test2", "test3") }}' >> $GITHUB_ENV
+          echo MESSAGE_TEST='test' >> $GITHUB_ENV
           
       - name: Notify Discord
         env:
