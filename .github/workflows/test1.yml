@@ -76,7 +76,7 @@ jobs:
       contents: read
 
     steps:
-      - id: Set Release Notes
+      - name: Set Release Notes
         run: |
           content=${{ toJSON(github.event.release.body) }}
           # the following lines are only required for multi line json
