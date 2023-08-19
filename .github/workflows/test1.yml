@@ -83,5 +83,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\nRelease Notes: ${{ github.event.release.body }}\n\nDownload: ${{ github.event.release.assets_url }}"
+              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\nRelease Notes: ${{ github.event.release.body }}\n\nDownload: <${{ github.event.release.html_url }}/*.apk>"
             }
