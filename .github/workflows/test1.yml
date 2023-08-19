@@ -84,7 +84,8 @@ jobs:
           content="${content//$'\n'/'%0A'}"
           content="${content//$'\r'/'%0D'}"
           # end of optional handling for multi line json
-          echo "::set-output name=jsonTest::$content"
+          echo "RELEASE_BODY $content"
+          echo "RELEASE_BODY=$content" >> $GITHUB_ENV
         
       - name: Notify Discord
         env:
