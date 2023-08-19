@@ -23,7 +23,7 @@ jobs:
 
       - name: Setup env var
         run: |
-          echo MESSAGE_TEST2='${{ format('{0}{1}{2}', "test1", "test2", "test3") }}' >> $GITHUB_ENV
+          echo MESSAGE_TEST2=format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat') >> $GITHUB_ENV
           
       - name: Checkout
         uses: actions/checkout@v3
