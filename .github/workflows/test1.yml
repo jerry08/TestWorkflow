@@ -90,5 +90,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": ${{ env.MESSAGE_TEST }}
+              "content": ${{ env.RELEASE_BODY }}
             }
