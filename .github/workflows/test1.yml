@@ -76,13 +76,9 @@ jobs:
       contents: read
 
     steps:
-      - name: Setup env var
-        run: |
-          echo MESSAGE_TEST=format('{0}{1}{2}', "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n", ${{ toJSON(github.event.release.body) }}, 'Octocat') >> $GITHUB_ENV
-          
       - name: Notify Discord
         env:
-          RELEASE_BODY: ${{ toJSON(github.event.release.body) }}
+          RELEASE_BODY: format('{0}{1}{2}', "**${{ github.event.repository.name }}** new version released!\nVersion':' `${{ github.ref_name }}`\n\n", ${{ toJSON(github.event.release.body) }}, 'Octocat')
     
         uses: tyrrrz/action-http-request@v1
         with:
