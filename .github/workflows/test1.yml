@@ -15,6 +15,7 @@ jobs:
       - name: Print outputs
         run: |
           echo "Status: ${{ secrets.DISCORD_WEBHOOK }}"
+          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
           
       - name: Checkout
         uses: actions/checkout@v3
