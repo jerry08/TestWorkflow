@@ -78,7 +78,7 @@ jobs:
     steps:
       - name: Setup env var
         run: |
-          echo MESSAGE_TEST=format('{0}{1}{2}', "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n", 'the', 'Octocat') >> $GITHUB_ENV
+          echo MESSAGE_TEST=format('{0}{1}{2}', "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n", ${{ toJSON(github.event.release.body) }}, 'Octocat') >> $GITHUB_ENV
           
       - name: Notify Discord
         env:
