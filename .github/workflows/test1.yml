@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: Setup env var
         run: |
-          echo MESSAGE_TEST=${{ fromJSON(toJSON(github.event.release.body)) }} >> $GITHUB_ENV
+          echo MESSAGE_TEST='${{ fromJSON(toJSON(github.event.release.body)) }}' >> $GITHUB_ENV
           
       - name: Notify Discord
         env:
