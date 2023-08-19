@@ -88,9 +88,6 @@ jobs:
           echo "RELEASE_BODY=$content" >> $GITHUB_ENV
         
       - name: Notify Discord
-        env:
-          RELEASE_BODY: ${{ steps.set_var.outputs.jsonTest }}
-          
         uses: tyrrrz/action-http-request@v1
         with:
           url: ${{ secrets.DISCORD_WEBHOOK }}
