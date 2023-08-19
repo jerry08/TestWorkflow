@@ -97,6 +97,6 @@ jobs:
           body: |
             {
               "username": "My Test1 Bot",
-              "avatar_url": "https://raw.githubusercontent.com/${{ github.event.repository.full_name }}/${{ github.ref_name }}/favicon.png",
+              "avatar_url": "https://raw.githubusercontent.com/${{ github.event.repository.full_name }}/master/favicon.png",
               "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.RELEASE_BODY }}\n\nDownload: <${{ github.event.release.assets[0].browser_download_url }}/${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.apk>"
             }
