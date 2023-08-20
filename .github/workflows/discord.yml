@@ -1,0 +1,37 @@
+name: discord
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Set Release Notes
+        run: |
+          content=${{ toJSON(github.event.release.body) }}
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "RELEASE_BODY $content"
+          echo "RELEASE_BODY=$content" >> $GITHUB_ENV
+        
+      - name: Notify Discord
+        uses: tyrrrz/action-http-request@v1
+        with:
+          url: ${{ secrets.DISCORD_WEBHOOK }}
+          method: POST
+          headers: |
+            Content-Type: application/json; charset=UTF-8
+          body: |
+            {
+              "username": "My Test1 Bot",
+              "avatar_url": "https://raw.githubusercontent.com/${{ github.event.repository.full_name }}/master/favicon.png",
+              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.RELEASE_BODY }}\n\nDownload: <${{ github.event.release.assets[0].browser_download_url }}/${{ github.event.repository.name }}-${{ github.event.release.tag_name }}.apk>"
+            }
