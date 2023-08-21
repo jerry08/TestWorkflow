@@ -81,6 +81,10 @@ jobs:
         run: |
           echo "${{toJSON(github.event)}}"
 
+      - name: Logging 2
+        run: |
+          echo "${{toJSON(github)}}"
+
       - name: Set Release Notes
         run: |
           content=${{ toJSON(github.event.release.body) }}
