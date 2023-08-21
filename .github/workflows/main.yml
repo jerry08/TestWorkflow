@@ -71,6 +71,7 @@ jobs:
           body: ${{ github.event.head_commit.message }}
 
   notify:
+    if: ${{ github.event_name == 'release' && github.ref_type == 'tag' }}
     needs: deploy
     runs-on: ubuntu-latest
     permissions:
@@ -99,5 +100,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ github.event.head_commit.message }}\n\nDownload: <${{ github.event.head_commit.assets[0].browser_download_url }}>"
+              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ github.event.head_commit.message }}\n\nDownload: <${{ github.event.release.assets[0].browser_download_url }}>"
             }
