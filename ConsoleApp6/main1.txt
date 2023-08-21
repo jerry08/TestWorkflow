@@ -43,7 +43,7 @@ jobs:
           path: ConsoleApp6/bin/Publish
 
   deploy:
-    if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
+    if: ${{ github.event_name == 'release' && github.ref_type == 'tag' }}
     needs: pack
     runs-on: ubuntu-latest
     permissions:
@@ -67,9 +67,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: ConsoleApp6.zip
-          draft: false
-          body: ${{ github.event.head_commit.message }}
-
+          body: |
+            this is a test
   notify:
     needs: deploy
     runs-on: ubuntu-latest
