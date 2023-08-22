@@ -81,12 +81,6 @@ jobs:
         run: |
           echo "${{toJSON(github.event)}}"
 
-      - name: Logging 2
-        run: |
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          git tag -l --format='%(contents:subject)' ${GITHUB_REF#refs/*/}
-          echo "TAG_MESSAGE=$(git tag -l --format='%(contents:subject)'${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
-
       - name: Logging 3
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
