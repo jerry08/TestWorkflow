@@ -84,7 +84,7 @@ jobs:
       - name: Logging 3
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          git tag -l --format='%(contents:subject)' ${GITHUB_REF#refs/*/}
+          git tag -l --format='%(contents:subject)' 1.0.16
 
       - name: Set Release Notes
         run: |
