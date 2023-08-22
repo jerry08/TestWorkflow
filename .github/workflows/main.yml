@@ -77,6 +77,9 @@ jobs:
       contents: read
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Logging
         run: |
           echo "${{toJSON(github.event)}}"
@@ -84,7 +87,7 @@ jobs:
       - name: Logging 3
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          git tag -l --format='%(contents:subject)' 1.0.16
+          git tag -l --format='%(contents:subject)' ${GITHUB_REF#refs/*/}
 
       - name: Set Release Notes
         run: |
