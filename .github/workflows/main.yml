@@ -24,6 +24,7 @@ jobs:
       - name: Setup env var
         run: |
           echo MESSAGE_TEST2=format('Hello {0} {1} {2}', "Mona", 'the', 'Octocat') >> $GITHUB_ENV
+          echo RELEASE_NAME=format('ConsoleApp6Test {0}', ${GITHUB_REF#refs/*/}) >> $GITHUB_ENV
           
       - name: Checkout
         uses: actions/checkout@v3
@@ -39,7 +40,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ConsoleApp6
+          name: ${{ env.RELEASE_NAME }}
           path: ConsoleApp6/bin/Publish
 
   deploy:
