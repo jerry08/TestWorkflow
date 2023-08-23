@@ -86,7 +86,8 @@ jobs:
 
       - name: Logging 3
         run: |
-          echo git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          echo '%(contents:subject)'
 
       - name: Set Release Notes
         run: |
