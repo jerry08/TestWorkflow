@@ -87,7 +87,7 @@ jobs:
       - name: Logging 3
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          echo "TAG_MESSAGE=$(git tag -l --format='%(contents:subject)'${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
+          echo git tag -l --format='%(contents:subject)' ${GITHUB_REF#refs/*/}
 
       - name: Set Release Notes
         run: |
