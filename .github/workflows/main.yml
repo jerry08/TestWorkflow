@@ -107,7 +107,8 @@ jobs:
       - name: Set variables
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          echo "TAG_MESSAGE=$(git tag -l --format='%(contents:subject)' ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
+          #echo "TAG_MESSAGE=$(git tag -l --format='%(contents:subject)' ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
+          echo "TAG_MESSAGE=$(git tag -l --format='%(contents:body)' ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
           TAG_NAME="${{ github.ref_name }}"
           TAG_NAME="$(echo $TAG_NAME | tr -d v)"
           echo $TAG_NAME
@@ -117,7 +118,7 @@ jobs:
       - name: Set Release Notes
         run: |
           #content=${{ toJSON(env.TAG_MESSAGE) }}
-          content="${{ env.TAG_MESSAGE }}"
+          content="${{ toJSON(env.TAG_MESSAGE) }}"
           # the following lines are only required for multi line json
           content="${content//'%'/'%25'}"
           content="${content//$'\n'/'%0A'}"
