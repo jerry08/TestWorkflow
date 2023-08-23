@@ -61,6 +61,11 @@ jobs:
         run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
         shell: pwsh
 
+      - name: Logging 3
+        run: |
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          echo "TAG_MESSAGE2=$(git tag -l --format='%(contents:subject)' ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
+
       - name: Create release
         uses: softprops/action-gh-release@v1
         env:
@@ -68,7 +73,7 @@ jobs:
         with:
           files: ConsoleApp6.zip
           draft: false
-          body: ${{ github.event.head_commit.message }}
+          body: ${{ env.TAG_MESSAGE2 }}
 
   notify:
     needs: deploy
