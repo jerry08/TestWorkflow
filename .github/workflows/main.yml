@@ -64,7 +64,10 @@ jobs:
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           echo "TAG_MESSAGE=$(git tag -l --format='%(contents:subject)' ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
-          echo "PACKAGE_NAME=${{ github.event.repository.name }}-$('${{ github.ref_name }}' | tr -d v).zip" >> $GITHUB_ENV
+          TAG_NAME="${{ github.ref_name }}"
+          TAG_NAME="$(echo $TAG_NAME | tr -d v)"
+          echo $TAG_NAME
+          echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
 
       - name: Download artifacts
         uses: actions/download-artifact@v3
