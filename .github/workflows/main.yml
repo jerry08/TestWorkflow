@@ -114,13 +114,13 @@ jobs:
 
       - name: Set Release Notes
         run: |
-          content=${{ toJSON(env.TAG_MESSAGE) }}
+          content=${{ env.TAG_MESSAGE }}
           # the following lines are only required for multi line json
           content="${content//'%'/'%25'}"
           content="${content//$'\n'/'%0A'}"
           content="${content//$'\r'/'%0D'}"
           #content="$($content | tr \" \')"
-          content="${content//$'"'/'''}"
+          content="$($content | tr \" \')"
           # end of optional handling for multi line json
           echo "RELEASE_BODY $content"
           echo "RELEASE_BODY=$content" >> $GITHUB_ENV
