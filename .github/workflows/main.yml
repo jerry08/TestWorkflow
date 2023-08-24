@@ -93,7 +93,7 @@ jobs:
 
       - name: Set variables
         run: |
-          echo "${{ env.TAG_MESSAGE3 }}"
+          echo "${{ env.TAG_MESSAGE2 }}"
           echo ${{ env.TAG_MESSAGE3 }}
 
       - name: Create package
@@ -108,7 +108,7 @@ jobs:
         with:
           files: ${{ env.PACKAGE_NAME }}
           draft: false
-          body: ${{ env.TAG_MESSAGE3 }}
+          body: ${{ env.TAG_MESSAGE }}
 
   notify:
     needs: deploy
