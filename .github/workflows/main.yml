@@ -82,7 +82,7 @@ jobs:
           echo "TAG_MESSAGE2=${TAG_MESSAGE}" >> $GITHUB_ENV
           # End sanitization
 
-      - name: Set variables
+      - name: Get body test
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
@@ -90,13 +90,12 @@ jobs:
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          echo "TAG_MESSAGE3=${{ toJSON(env.TAG_MESSAGE2) }}" >> $GITHUB_ENV
-          # End sanitization
-          #echo $TAG_MESSAGE
-          TAG_NAME="${{ github.ref_name }}"
-          TAG_NAME="$(echo $TAG_NAME | tr -d v)"
-          echo $TAG_NAME
-          echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
+          echo "TAG_MESSAGE2=${TAG_MESSAGE}" >> $GITHUB_ENV
+
+      - name: Set variables
+        run: |
+          echo "${{ env.TAG_MESSAGE3 }}"
+          echo ${{ env.TAG_MESSAGE3 }}
 
       - name: Create release
         uses: softprops/action-gh-release@v1
