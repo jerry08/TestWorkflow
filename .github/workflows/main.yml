@@ -66,11 +66,6 @@ jobs:
           name: ConsoleApp6
           path: ConsoleApp6
 
-      - name: Create package
-        #run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
-        run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ${{ env.PACKAGE_NAME }} -Force
-        shell: pwsh
-
       - name: Set body
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
@@ -96,6 +91,11 @@ jobs:
         run: |
           echo "${{ env.TAG_MESSAGE3 }}"
           echo ${{ env.TAG_MESSAGE3 }}
+
+      - name: Create package
+        #run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
+        run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ${{ env.PACKAGE_NAME }} -Force
+        shell: pwsh
 
       - name: Create release
         uses: softprops/action-gh-release@v1
