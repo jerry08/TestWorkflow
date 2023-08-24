@@ -60,6 +60,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ConsoleApp6
+          path: ConsoleApp6
+
+      - name: Create package
+        #run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
+        run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ${{ env.PACKAGE_NAME }} -Force
+        shell: pwsh
+
       - name: Set body
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
@@ -86,17 +97,6 @@ jobs:
           TAG_NAME="$(echo $TAG_NAME | tr -d v)"
           echo $TAG_NAME
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: ConsoleApp6
-          path: ConsoleApp6
-
-      - name: Create package
-        #run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
-        run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ${{ env.PACKAGE_NAME }} -Force
-        shell: pwsh
 
       - name: Create release
         uses: softprops/action-gh-release@v1
