@@ -94,7 +94,7 @@ jobs:
         with:
           files: ${{ env.PACKAGE_NAME }}
           draft: false
-          body: ${{ env.TAG_MESSAGE }}
+          body: ${{ toJSON(env.TAG_MESSAGE) }}
 
   notify:
     needs: deploy
