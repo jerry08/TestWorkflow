@@ -1,0 +1,33 @@
+TAG_NAME="0.0.1"
+TAG_NAME="$(echo $TAG_NAME | sed 's/./-/g')"
+echo $TAG_NAME # Output: 0-0-1
+
+TAG_NAME="0.0.1"
+TAG_NAME="$(echo $TAG_NAME | tr . -)"
+echo $TAG_NAME # Output: 0-0-1
+
+
+
+
+
+TAG_NAME="test0.0.1"
+TAG_NAME="$(echo $TAG_NAME | tr -d test)"
+echo $TAG_NAME # Output: 0.0.1
+
+TAG_NAME="v0.0.1"
+TAG_NAME="$(echo $TAG_NAME | tr -d v)"
+echo $TAG_NAME # Output: 0.0.1
+
+
+TAG_NAME="$(echo 'v0.0.1' | tr -d v)"
+echo $TAG_NAME
+
+
+VALID_JSON="$(echo '"test"' | tr \" \')"
+echo $VALID_JSON
+
+
+content='"staffRole (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"1855040184\" data-permission-text=\"Title is private\" data-url=\"https://github.com/saikou-app/saikou/issues/786\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/saikou-app/saikou/pull/786/hovercard\" href=\"https://github.com/saikou-app/saikou/pull/786\">#786</a>)"'
+content="$(echo $content | tr \" \')"
+echo $content
+

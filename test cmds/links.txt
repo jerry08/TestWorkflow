@@ -1,0 +1,7 @@
+https://github.com/saikou-app/saikou/releases/tag/v1.2.5.3f2c408
+
+
+
+staffRole (<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1855040184" data-permission-text="Title is private" data-url="https://github.com/saikou-app/saikou/issues/786" data-hovercard-type="pull_request" data-hovercard-url="/saikou-app/saikou/pull/786/hovercard" href="https://github.com/saikou-app/saikou/pull/786">#786</a>)
+
+added Author to Anime

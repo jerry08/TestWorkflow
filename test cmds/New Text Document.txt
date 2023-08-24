@@ -1,0 +1,7 @@
+git tag -l --format='"%(contents)"' v1.0.42
+
+
+git tag -l --format="%(contents)" v1.0.50
+
+
+git tag -l --format='%(contents:subject)' v1.0.50
