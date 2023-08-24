@@ -60,16 +60,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set body
-        run: |
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
-          # Sanitize content
-          TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          echo "TAG_MESSAGE3=${TAG_MESSAGE}" >> $GITHUB_ENV
-
       - name: Set variables
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
@@ -78,7 +68,7 @@ jobs:
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          echo "TAG_MESSAGE2=${{ toJSON(env.TAG_MESSAGE3) }}" >> $GITHUB_ENV
+          echo "TAG_MESSAGE2=${{ toJSON(TAG_MESSAGE) }}" >> $GITHUB_ENV
           # End sanitization
           #echo $TAG_MESSAGE
           TAG_NAME="${{ github.ref_name }}"
