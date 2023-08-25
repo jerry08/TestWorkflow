@@ -80,12 +80,13 @@ jobs:
           TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
           TAG_MESSAGE2="$TAG_MESSAGE" >> $GITHUB_ENV
           echo "TAG_MESSAGE2=$TAG_MESSAGE" >> $GITHUB_ENV
+          echo "::set-output name=testMesg::$TAG_MESSAGE"
           # End sanitization
 
       - name: Set variables
         run: |
           echo "${{ env.TAG_MESSAGE2 }}"
-          echo ${{ env.TAG_MESSAGE3 }}
+          echo ${{ env.testMesg }}
 
       - name: Create package
         #run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
@@ -99,7 +100,7 @@ jobs:
         with:
           files: ${{ env.PACKAGE_NAME }}
           draft: false
-          body: ${{ env.TAG_MESSAGE2 }}
+          body: ${{ env.testMesg }}
 
   notify:
     needs: deploy
