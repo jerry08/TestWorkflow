@@ -78,13 +78,21 @@ jobs:
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          echo "::set-output name=testMesg::$TAG_MESSAGE"
+          TAG_MESSAGE="$TAG_MESSAGE" >> $GITHUB_ENV
           # End sanitization
+
+      - name: Test message get1
+        run: |
+          echo "${{ env.TAG_MESSAGE }}"
 
       - name: Create package
         #run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
         run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ${{ env.PACKAGE_NAME }} -Force
         shell: pwsh
+
+      - name: Test message get2
+        run: |
+          echo "${{ env.TAG_MESSAGE }}"
 
       - name: Create release
         uses: softprops/action-gh-release@v1
@@ -93,7 +101,7 @@ jobs:
         with:
           files: ${{ env.PACKAGE_NAME }}
           draft: false
-          body: ${{ env.testMesg }}
+          body: ${{ env.TAG_MESSAGE }}
 
   notify:
     needs: deploy
