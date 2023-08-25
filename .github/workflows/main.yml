@@ -77,12 +77,13 @@ jobs:
           # Sanitize content
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
+          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}"
           echo "TAG_MESSAGE=$TAG_MESSAGE" >> $GITHUB_ENV
           # End sanitization
 
       - name: Test message get1
         run: |
+          echo "$TAG_MESSAGE"
           echo "${{ env.TAG_MESSAGE }}"
 
       - name: Create package
