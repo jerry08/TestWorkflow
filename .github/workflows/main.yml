@@ -74,12 +74,7 @@ jobs:
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
-          # Sanitize content
-          TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}"
           echo "TAG_MESSAGE=$TAG_MESSAGE" >> $GITHUB_ENV
-          # End sanitization
 
       - name: Test message get1
         run: |
