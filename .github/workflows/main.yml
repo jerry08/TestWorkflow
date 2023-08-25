@@ -81,16 +81,6 @@ jobs:
           echo "TAG_MESSAGE2=$TAG_MESSAGE" >> $GITHUB_ENV
           # End sanitization
 
-      - name: Get body test
-        run: |
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
-          # Sanitize content
-          TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          echo "TAG_MESSAGE2=${TAG_MESSAGE}" >> $GITHUB_ENV
-
       - name: Set variables
         run: |
           echo "${{ env.TAG_MESSAGE2 }}"
