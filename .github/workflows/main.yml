@@ -73,12 +73,13 @@ jobs:
           echo $TAG_NAME
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
+          echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
+          echo "TAG_MESSAGE2=$TAG_MESSAGE" >> $GITHUB_ENV
 
       - name: Test message get1
         run: |
-          echo "$TAG_MESSAGE"
-          echo "${{ env.TAG_MESSAGE }}"
+          echo "$TAG_MESSAGE2"
+          echo "${{ env.TAG_MESSAGE2 }}"
 
       - name: Create package
         #run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
@@ -87,7 +88,7 @@ jobs:
 
       - name: Test message get2
         run: |
-          echo "${{ env.TAG_MESSAGE }}"
+          echo "${{ env.TAG_MESSAGE2 }}"
 
       - name: Create release
         uses: softprops/action-gh-release@v1
@@ -96,7 +97,7 @@ jobs:
         with:
           files: ${{ env.PACKAGE_NAME }}
           draft: false
-          body: ${{ env.TAG_MESSAGE }}
+          body: ${{ env.TAG_MESSAGE2 }}
 
   notify:
     needs: deploy
