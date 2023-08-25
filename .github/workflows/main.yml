@@ -78,7 +78,7 @@ jobs:
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          echo "TAG_MESSAGE2=${TAG_MESSAGE}" >> $GITHUB_ENV
+          echo "TAG_MESSAGE2=$TAG_MESSAGE" >> $GITHUB_ENV
           # End sanitization
 
       - name: Get body test
@@ -108,7 +108,7 @@ jobs:
         with:
           files: ${{ env.PACKAGE_NAME }}
           draft: false
-          body: ${{ env.TAG_MESSAGE }}
+          body: ${{ env.TAG_MESSAGE2 }}
 
   notify:
     needs: deploy
