@@ -92,7 +92,7 @@ jobs:
 
       - name: Test message get2
         run: |
-          echo "${{ env.TAG_MESSAGE }}"
+          echo "$TAG_MESSAGE"
           echo "${{ env.PACKAGE_NAME }}"
 
       - name: Create release
