@@ -77,7 +77,7 @@ jobs:
           # Sanitize content
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
+          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}"
           TAG_MESSAGE="$TAG_MESSAGE" >> $GITHUB_ENV
           # End sanitization
 
@@ -93,6 +93,7 @@ jobs:
       - name: Test message get2
         run: |
           echo "${{ env.TAG_MESSAGE }}"
+          echo "${{ env.PACKAGE_NAME }}"
 
       - name: Create release
         uses: softprops/action-gh-release@v1
