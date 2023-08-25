@@ -74,10 +74,8 @@ jobs:
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})
-          # Sanitize content
-          TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
+          # No need to sanitize content here. Only for releasing in json
+          
           # End sanitization
           echo "TAG_MESSAGE2=$TAG_MESSAGE" >> $GITHUB_ENV
 
@@ -127,7 +125,8 @@ jobs:
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          echo "$TAG_MESSAGE" >> $GITHUB_ENV
+          TAG_MESSAGE=$TAG_MESSAGE >> $GITHUB_ENV
+          echo "$TAG_MESSAGE"
           # End sanitization
           #echo $TAG_MESSAGE
           TAG_NAME="${{ github.ref_name }}"
