@@ -78,7 +78,7 @@ jobs:
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}"
-          TAG_MESSAGE="$TAG_MESSAGE" >> $GITHUB_ENV
+          echo "TAG_MESSAGE=$TAG_MESSAGE" >> $GITHUB_ENV
           # End sanitization
 
       - name: Test message get1
@@ -92,7 +92,7 @@ jobs:
 
       - name: Test message get2
         run: |
-          echo "$TAG_MESSAGE"
+          echo "${{ env.TAG_MESSAGE }}"
           echo "${{ env.PACKAGE_NAME }}"
 
       - name: Create release
