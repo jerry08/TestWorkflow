@@ -75,12 +75,11 @@ jobs:
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})
           # Sanitize content
-          TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'<br>'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'<br>'}"
-          TAG_MESSAGE=$TAG_MESSAGE >> $GITHUB_ENV
-          echo "$TAG_MESSAGE"
+          echo "TAG_MESSAGE2<<EOF" >> $GITHUB_ENV
+          # here we can place the command that will generate multi-line text
+          echo $TAG_MESSAGE >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
           # End sanitization
-          echo "TAG_MESSAGE2=$TAG_MESSAGE" >> $GITHUB_ENV
 
       - name: Test message get1
         run: |
