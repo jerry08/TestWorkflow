@@ -78,7 +78,7 @@ jobs:
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})
           echo "TAG_MESSAGE2<<EOF" >> $GITHUB_ENV
-          echo ""$TAG_MESSAGE"" >> $GITHUB_ENV
+          echo "$TAG_MESSAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Test message get1
