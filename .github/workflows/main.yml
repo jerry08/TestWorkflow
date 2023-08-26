@@ -126,8 +126,8 @@ jobs:
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          echo "TAG_MESSAGE=$TAG_MESSAGE" >> $GITHUB_ENV
-          echo "Release notes - $TAG_MESSAGE"
+          echo "TAG_MESSAGE2=$TAG_MESSAGE" >> $GITHUB_ENV
+          echo "Release notes - $TAG_MESSAGE2"
           # End sanitization
           TAG_NAME="${{ github.ref_name }}"
           TAG_NAME="$(echo $TAG_NAME | tr -d v)"
@@ -145,5 +145,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.TAG_MESSAGE }}\n\nDownload: <${{ github.event.repository.html_url }}/download/${{ github.ref_name }}/${{ env.PACKAGE_NAME }}>"
+              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.TAG_MESSAGE2 }}\n\nDownload: <${{ github.event.repository.html_url }}/download/${{ github.ref_name }}/${{ env.PACKAGE_NAME }}>"
             }
