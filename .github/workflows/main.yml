@@ -128,19 +128,15 @@ jobs:
       - name: Set variables 2
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
+          echo "TAG_MESSAGE3=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
           echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
-          echo "$TAG_MESSAGE" >> $GITHUB_ENV
+          echo "$TAG_MESSAGE3" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Test message get1
         run: |
           echo "$RELEASE_BODY"
-          echo "$TAG_MESSAGE"
           echo "${{ env.RELEASE_BODY }}"
-          echo "${{ env.TAG_MESSAGE }}"
-          echo "${{ toJSON(env.TAG_MESSAGE) }}"
-          echo "${{ toJSON(env.RELEASE_BODY) }}"
 
       - name: Notify Discord
         uses: tyrrrz/action-http-request@v1
