@@ -134,7 +134,20 @@ jobs:
           TAG_NAME="$(echo $TAG_NAME | tr -d v)"
           echo "$TAG_NAME"
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
-        
+
+      - name: Set Release Notes
+        run: |
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
+          content=${{ toJSON($TAG_MESSAGE) }}
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "RELEASE_BODY $content"
+          echo "RELEASE_BODY=$content" >> $GITHUB_ENV
+
       - name: Notify Discord
         uses: tyrrrz/action-http-request@v1
         with:
@@ -146,5 +159,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.TAG_MESSAGE2 }}\n\nDownload: <${{ github.event.repository.html_url }}/download/${{ github.ref_name }}/${{ env.PACKAGE_NAME }}>"
+              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.RELEASE_BODY }}\n\nDownload: <${{ github.event.repository.html_url }}/download/${{ github.ref_name }}/${{ env.PACKAGE_NAME }}>"
             }
