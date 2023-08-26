@@ -121,19 +121,17 @@ jobs:
       - name: Set variables
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          #echo "TAG_MESSAGE=$(git tag -l --format='%(contents:subject)' ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
           echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
           # Sanitize content
           TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
           TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          TAG_MESSAGE=$TAG_MESSAGE >> $GITHUB_ENV
-          echo "$TAG_MESSAGE"
+          echo "TAG_MESSAGE=$TAG_MESSAGE" >> $GITHUB_ENV
+          echo "Release notes - $TAG_MESSAGE"
           # End sanitization
-          #echo $TAG_MESSAGE
           TAG_NAME="${{ github.ref_name }}"
           TAG_NAME="$(echo $TAG_NAME | tr -d v)"
-          echo $TAG_NAME
+          echo "$TAG_NAME"
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
         
       - name: Notify Discord
