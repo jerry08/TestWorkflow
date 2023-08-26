@@ -23,13 +23,12 @@ jobs:
 
       - name: Defining a new Environment Variable
         run: |                          
-          {
-            echo "### My Report Header"
-            echo "\`\`\`"
-            cat ${{ env.report_filename }}
-            echo ""
-            echo "\`\`\`"
-          } >> $GITHUB_STEP_SUMMARY
+          MULTI_LINES_TEXT=$(cat "this is line one \n
+                            this is line two \n
+                            this is line three \n")
+
+          MULTI_LINES_TEXT="$MULTI_LINES_TEXT"
+          echo "$MULTI_LINES_TEXT"
 
       - name: Setup env var
         run: |
