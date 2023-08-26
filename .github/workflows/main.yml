@@ -145,7 +145,7 @@ jobs:
           echo "${{ env.RELEASE_BODY }}"
           echo "${{ env.TAG_MESSAGE }}"
           echo "${{ toJSON(env.TAG_MESSAGE) }}"
-          echo "${{ toJSON(env.RELEASE_BODY) }}"
+          echo "${{ toJSON('${{ env.RELEASE_BODY }}') }}"
 
       - name: Notify Discord
         uses: tyrrrz/action-http-request@v1
