@@ -96,13 +96,16 @@ jobs:
           echo "${{ env.TAG_MESSAGE2 }}"
 
       - name: Create release
-        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          files: ${{ env.PACKAGE_NAME }}
-          draft: false
-          body: ${{ env.TAG_MESSAGE2 }}
+        run: >
+          gh release create "${{ github.ref_name }}"
+          "${{ env.PACKAGE_NAME }}"
+          "Test1353.zip"
+          --repo "${{ github.event.repository.full_name }}"
+          --title "${{ github.ref_name }}"
+          --notes "${{ env.TAG_MESSAGE2 }}"
+          --verify-tag
 
   notify:
     needs: deploy
