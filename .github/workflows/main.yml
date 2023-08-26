@@ -23,14 +23,13 @@ jobs:
 
       - name: Defining a new Environment Variable
         run: |                          
-          MULTI_LINES_TEXT="this is line one \n
-                            this is line two \n
-                            this is line three \n"    
-
-          echo "MULTI_LINES_TEXT_ENV_VAR<<EOF" >> $GITHUB_ENV
-          # here we can place the command that will generate multi-line text
-          echo $MULTI_LINES_TEXT >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          {
+            echo "### My Report Header"
+            echo "\`\`\`"
+            cat ${{ env.report_filename }}
+            echo ""
+            echo "\`\`\`"
+          } >> $GITHUB_STEP_SUMMARY
 
       - name: Setup env var
         run: |
