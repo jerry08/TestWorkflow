@@ -138,7 +138,7 @@ jobs:
       - name: Set Release Notes
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
+          echo "content=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
           # the following lines are only required for multi line json
           content="${content//'%'/'%25'}"
           content="${content//$'\n'/'%0A'}"
