@@ -140,6 +140,7 @@ jobs:
 
       - name: Test message get1
         run: |
+          echo "${{ env.TAG_MESSAGE }}"
           echo "${{ toJSON(env.TAG_MESSAGE) }}"
           echo "${{ toJSON(env.RELEASE_BODY) }}"
 
