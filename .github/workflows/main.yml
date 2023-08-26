@@ -72,14 +72,14 @@ jobs:
           TAG_NAME="$(echo $TAG_NAME | tr -d v)"
           echo $TAG_NAME
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
+
+      - name: Set body 2
+        run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})
-          # Sanitize content
           echo "TAG_MESSAGE2<<EOF" >> $GITHUB_ENV
-          # here we can place the command that will generate multi-line text
           echo $TAG_MESSAGE >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          # End sanitization
 
       - name: Test message get1
         run: |
