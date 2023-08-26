@@ -129,11 +129,6 @@ jobs:
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           echo "TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
-          # Sanitize content
-          TAG_MESSAGE="${TAG_MESSAGE//'%'/'%25'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\n'/'%0A'}"
-          TAG_MESSAGE="${TAG_MESSAGE//$'\r'/'%0D'}" | sed -r "s/\\\"/\\'/g"
-          # End sanitization
           echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
           echo "$TAG_MESSAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
