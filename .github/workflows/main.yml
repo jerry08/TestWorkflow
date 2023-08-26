@@ -125,18 +125,18 @@ jobs:
           echo "$TAG_NAME"
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
 
-      - name: Set variables 2
+      - name: Set body 2
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          echo "TAG_MESSAGE3=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})"
-          echo "RELEASE_BODY<<EOF" >> $GITHUB_ENV
-          echo "$TAG_MESSAGE3" >> $GITHUB_ENV
+          TAG_MESSAGE=$(git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/})
+          echo "TAG_MESSAGE2<<EOF" >> $GITHUB_ENV
+          echo "$TAG_MESSAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Test message get1
         run: |
-          echo "$RELEASE_BODY"
-          echo "${{ env.RELEASE_BODY }}"
+          echo "$TAG_MESSAGE2"
+          echo "${{ env.TAG_MESSAGE2 }}"
 
       - name: Notify Discord
         uses: tyrrrz/action-http-request@v1
@@ -149,5 +149,5 @@ jobs:
             {
               "username": "My Test1 Bot",
               "avatar_url": "https://i.imgur.com/4M34hi2.png",
-              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.RELEASE_BODY }}\n\nDownload: <${{ github.event.repository.html_url }}/download/${{ github.ref_name }}/${{ env.PACKAGE_NAME }}>"
+              "content": "**${{ github.event.repository.name }}** new version released!\nVersion: `${{ github.ref_name }}`\n\n${{ env.TAG_MESSAGE }}\n\nDownload: <${{ github.event.repository.html_url }}/download/${{ github.ref_name }}/${{ env.PACKAGE_NAME }}>"
             }
