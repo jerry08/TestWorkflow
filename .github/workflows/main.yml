@@ -93,6 +93,7 @@ jobs:
           echo "${{ env.TAG_MESSAGE2 }}"
 
       - name: Clean up build artifacts
+        if: startsWith(github.ref, 'refs/tags/') && github.repository == 'jerry08/TestWorkflow'
         run: |
           set -e
 
