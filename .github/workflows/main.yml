@@ -66,6 +66,12 @@ jobs:
           set -x
           echo "VERSION_TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ConsoleApp6
+          path: test4.txt
+
       - name: Set body
         run: |
           TAG_NAME="${{ github.ref_name }}"
