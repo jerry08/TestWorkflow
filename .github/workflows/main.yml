@@ -70,7 +70,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ConsoleApp6
-          path: ConsoleApp6
+          path: TestFolder1/Downloads
 
       - name: Set body
         run: |
@@ -97,7 +97,7 @@ jobs:
         run: |
           set -e
 
-          mv ConsoleApp6/bin/Publish/ConsoleApp6.deps.json test2.txt
+          mv TestFolder1/Downloads/ConsoleApp6.deps.json test2.txt
 
       - name: Test message get2
         run: |
