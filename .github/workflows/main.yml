@@ -69,8 +69,8 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: ConsoleApp6/test4.txt
-          path: ConsoleApp6/test4.txt
+          name: ConsoleApp6
+          path: test4.txt
 
       - name: Set body
         run: |
@@ -97,7 +97,7 @@ jobs:
         run: |
           set -e
 
-          mv ConsoleApp6/test4.txt test2.txt
+          mv test4.txt test2.txt
 
       - name: Test message get2
         run: |
