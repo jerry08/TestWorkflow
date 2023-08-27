@@ -97,7 +97,7 @@ jobs:
         run: |
           set -e
 
-          mv ConsoleApp6/test4.txt test2.txt
+          mv ConsoleApp6/bin/Publish/ConsoleApp6.deps.json test2.txt
 
       - name: Test message get2
         run: |
