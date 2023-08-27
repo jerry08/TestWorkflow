@@ -70,7 +70,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ConsoleApp6
-          path: test4.txt
+          path: ConsoleApp6
 
       - name: Set body
         run: |
