@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ConsoleApp6
-          path: ConsoleApp6/bin/Publish
+          path: ConsoleApp6/bin/Publish/ConsoleApp6.deps.json
 
   deploy:
     if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
@@ -70,7 +70,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ConsoleApp6
-          path: ConsoleApp6/bin/Publish
+          path: test4.txt
 
       - name: Set body
         run: |
@@ -97,7 +97,7 @@ jobs:
         run: |
           set -e
 
-          mv ConsoleApp6/bin/Publish/ConsoleApp6.deps.json test2.txt
+          mv test4.txt test2.txt
 
       - name: Test message get2
         run: |
