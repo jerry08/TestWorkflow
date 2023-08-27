@@ -70,7 +70,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ConsoleApp6
-          path: ConsoleApp6
+          path: ConsoleApp6/bin/Publish
 
       - name: Set body
         run: |
