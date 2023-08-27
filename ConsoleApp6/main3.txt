@@ -92,11 +92,10 @@ jobs:
           echo "$TAG_MESSAGE2"
           echo "${{ env.TAG_MESSAGE2 }}"
 
-      - name: Clean up build artifacts
-        run: |
-          set -e
-
-          mv ConsoleApp6/bin/Publish/ConsoleApp6.deps.json test2.txt
+      - name: Create package
+        #run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ConsoleApp6.zip -Force
+        run: Compress-Archive -Path ConsoleApp6/* -DestinationPath ${{ env.PACKAGE_NAME }} -Force
+        shell: pwsh
 
       - name: Test message get2
         run: |
@@ -107,7 +106,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: test2.txt
+          files: ${{ env.PACKAGE_NAME }}
           draft: false
           body: ${{ env.TAG_MESSAGE2 }}
 
