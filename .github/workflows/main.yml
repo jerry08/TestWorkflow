@@ -72,7 +72,7 @@ jobs:
           # Name of the artifact that was previously uploaded
           name: ConsoleApp6
           # Download to specified folder
-          path: TestFolder1/Downloads
+          path: AniStream
 
       - name: Set body
         run: |
@@ -99,7 +99,7 @@ jobs:
         run: |
           set -e
 
-          mv TestFolder1/Downloads/ConsoleApp6.deps.json test2.txt
+          mv AniStream/ConsoleApp6.deps.json ${{ env.PACKAGE_NAME }}
 
       - name: Test message get2
         run: |
@@ -111,7 +111,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: >
           gh release create "${{ github.ref_name }}"
-          "test2.txt"
+          "${{ env.PACKAGE_NAME }}"
           --repo "${{ github.event.repository.full_name }}"
           --title "${{ github.ref_name }}"
           --notes "${{ env.TAG_MESSAGE2 }}"
