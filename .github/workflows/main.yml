@@ -77,8 +77,9 @@ jobs:
       - name: Set body
         run: |
           TAG_NAME="${{ github.ref_name }}"
-          TAG_NAME="$(echo $TAG_NAME | tr -d v)"
           echo $TAG_NAME
+          VERSION="$(echo $TAG_NAME | tr -d v)"
+          echo $VERSION
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
 
       - name: Set body 2
@@ -110,14 +111,6 @@ jobs:
           TAG_NAME="${{ github.ref_name }}"
           TAG_NAME="$(echo $TAG_NAME | tr -d v)"
           echo "RELEASE_NAME=$TAG_NAME" >> $GITHUB_ENV
-
-      - name: Set variables
-        run: |
-          TAG_NAME="${{ github.ref_name }}"
-          echo $TAG_NAME
-          VERSION="$(echo $TAG_NAME | tr -d v)"
-          echo $VERSION
-          echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.apk" >> $GITHUB_ENV
 
       #- name: Create release
       #  uses: softprops/action-gh-release@v1
