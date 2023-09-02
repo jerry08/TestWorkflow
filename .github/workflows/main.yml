@@ -78,7 +78,7 @@ jobs:
         run: |
           TAG_NAME="${{ github.ref_name }}"
           echo $TAG_NAME
-          VERSION="$(echo $TAG_NAME | tr -d v)"
+          VERSION="$(echo $TAG_NAME | tr -d v)" >> $GITHUB_ENV
           echo $VERSION
           echo "PACKAGE_NAME=${{ github.event.repository.name }}-$TAG_NAME.zip" >> $GITHUB_ENV
 
